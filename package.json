@@ -1,0 +1,21 @@
+{
+  "name": "reCaptchav3",
+  "version": "1.0.0",
+  "description": "Example reCaptcha v3",
+  "main": "local-server.js",
+  "repository": "https://github.com/mortegac/recaptcha-v3",
+  "author": "Manuel Alejandro Ortega Carcamo <mortega@apgca.cl>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/.bin/nodemon -e js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.0",
+    "helmet": "^3.21.2",
+    "method-override": "^3.0.0",
+    "nodemon": "^1.19.4"
+  }
+}

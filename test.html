@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example reCaptcha v3</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+</head>
+<script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+      
+<script src="https://www.google.com/recaptcha/api.js?render=6Ld3w9kUAAAAANW4rRPYiiXWaHJ4h8cnLJZT4vc8"></script>
+
+<body>
+    <section class="section">
+        <div class="container">
+          <h1 class="title">
+            Example reCaptcha v3
+          </h1>
+
+
+
+          <form id="form_id" method="post">
+
+              <div class="field is-grouped">
+                <div class="control">
+                    <br />
+                  <button id='btnToken' class="button is-link">Generar Token Front</button>
+                  
+                </div>
+               
+              </div>
+
+                <section class="hero is-primary">
+                    <div class="hero-body">
+                      <div class="container">
+                        <h1 class="title">
+                           Validación del Token
+                        </h1>
+                        <h2 id="server-results"class="subtitle"></h2>
+                      </div>
+                    </div>
+                  </section>
+
+          </form>
+          
+        </div>
+      </section>
+
+   
+
+
+    <script>
+        $('#form_id').submit(function(event) {
+            event.preventDefault();
+     
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6Ld3w9kUAAAAANW4rRPYiiXWaHJ4h8cnLJZT4vc8', {action: 'subscribe_newsletter'}).then(function(token) {
+                    
+                    if($('#lblToken').length != 0){
+                        document.body.removeChild(document.getElementById('lblToken'));
+                        document.body.removeChild(document.getElementById('Token'));
+                    }
+                    
+                    $('#form_id').prepend('<label id="lblToken" class="label">Token:</label><textarea  id="Token" class="textarea is-danger" rows="12" placeholder="Textarea">"' + token + '"</textarea>');
+                    
+
+                    const post_url = 'https://www.google.com/recaptcha/api/siteverify';
+                    const request_method = 'POST';
+                    const form_data = {
+                        secret:'6Ld3w9kUAAAAAG_wIrCbv4iwadusxdCttzdS_EX4',
+                        response: token.replace('"','')
+                    };
+
+
+                    // $('#btnToken').prop('disabled', true);
+                    // $('#btnValidateToken').prop('disabled', false);
+
+
+
+                    console.log('ajax:', JSON.stringify(form_data));
+
+                    // $.ajax({
+                    //     url : post_url,
+                    //     type: request_method,
+                    //     data : form_data
+
+                    // }).done(function(response){ 
+                    //     // $('#server-results').show(); 
+                    //     console.log('done:', JSON.stringify(response));
+                    //     $("#server-results").html(JSON.stringify(response));
+
+                    // }).fail(function(e) {
+                    //     console.log('error:', e);
+                    //     // $('#server-results').show(); 
+                    //     $("#server-results").html(JSON.stringify(e));
+                    // });
+
+           
+       // });
+                    
+                    
+                    // $('#form_id').unbind('submit').submit();
+                });;
+            });
+      });
+      </script>
+
+</body>
+</html>
